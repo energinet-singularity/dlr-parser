@@ -9,7 +9,7 @@ The container needs to been given a topic to listen to and a specified path to d
 ## Roadmap
 
 - [x] Add code
-- [x] Add function to specify inputs as Kafka IP, Kafka topic, and filepath for CSV
+- [x] Add function to specify inputs as Kafka IP, Kafka topic, filename and filepath for CSV
 - [ ] Build Helm chart
 - [ ] Test
 - [ ] ??

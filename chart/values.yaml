@@ -1,0 +1,44 @@
+# Default values for ..
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+  file-mover:
+    folderMounts:
+      input:
+        enabled: true
+        volume:
+          emptyDir: {}
+      output:
+        enabled: true
+        volume:
+          persistentVolumeClaim:
+            claimName: oag4csv-pvc
+
+replicaCount: 1
+
+image:
+  repository: kafka-scada-parser:0.0.1
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+podAnnotations: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+kafka:
+  ip: ""
+  topic: ""
+
+file:
+  path: ""
+  name: ""
+
+oag4csvDataVolume:
+  accessMode: ReadWriteOnce
+  size: 1G
+  storageClass: standard
