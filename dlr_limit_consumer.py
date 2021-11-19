@@ -13,7 +13,7 @@ file_name = os.environ['FILE_NAME']
 
 # file_path = '/home/thomas/Desktop/workspace/python-client-kafka/kafka-scada-parser/kafka_to_csv.csv'
 
-cylce = 2
+cycle = 2
 
 consumer = KafkaConsumer(
     topic_name,
@@ -23,8 +23,8 @@ consumer = KafkaConsumer(
     value_deserializer=lambda x: loads(x.decode('utf-8')))
 
 def consumer_kafka_to_csv():
-    for idx,message in enumerate(consumer):
-        if idx < 1:
+    for i,message in enumerate(consumer):
+        if i < 1:
             message = message.value
             #print('{} added'.format(message))
             consumer.commit()
@@ -33,10 +33,16 @@ def consumer_kafka_to_csv():
         return message
 
 while True:
+    
     start = time.time()
-    data = consumer_kafka_to_csv()
+    try:
+        data = consumer_kafka_to_csv()
+    except:
+        print('Failed to connect to kafka topic')
+        time.sleep(cycle)
+        continue
+    
     print(data)
-    print(type(data))
 
     if not os.path.isfile(file_path):
         df = pd.DataFrame(list())
@@ -53,4 +59,4 @@ while True:
 
     end = time.time()
     print(f"Runtime of the program is {end - start}")
-    time.sleep(cylce)
+    
