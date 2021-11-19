@@ -10,6 +10,6 @@ The container needs to been given a topic to listen to and a specified path to d
 
 - [x] Add code
 - [x] Add function to specify inputs as Kafka IP, Kafka topic, filename and filepath for CSV
-- [ ] Build Helm chart
+- [x] Build Helm chart
 - [ ] Test
 - [ ] ??
