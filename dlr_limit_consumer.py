@@ -14,6 +14,8 @@ file_name = os.environ['FILE_NAME']
 # file_path = '/home/thomas/Desktop/workspace/python-client-kafka/kafka-scada-parser/kafka_to_csv.csv'
 
 cycle = 2
+show_debug = True
+show_data = True
 
 consumer = KafkaConsumer(
     topic_name,
@@ -33,7 +35,7 @@ def consumer_kafka_to_csv():
         return message
 
 while True:
-    
+
     start = time.time()
     try:
         data = consumer_kafka_to_csv()
@@ -42,21 +44,25 @@ while True:
         time.sleep(cycle)
         continue
     
-    print(data)
+    if show_data: print(data)
 
     if not os.path.isfile(file_path):
         df = pd.DataFrame(list())
         df.to_csv(file_name)
+    
 
-    try:
-        with open(file_path, 'w') as csv_file:
-            w = csv.DictWriter(csv_file, fieldnames = data.keys())
-            w.writeheader()
-            for i in data:
-                w.writerow(data)
-    except IOError:
-        print('I/O error')
+    if True:
+        try:
+            with open(file_path, 'w') as csv_file:
+                w = csv.DictWriter(csv_file, fieldnames = data.keys())
+                w.writeheader()
+                for i in data:
+                    w.writerow(data)
+        except IOError:
+            print('I/O error')
+    else:
+        print('No new data in kafka topic')
 
     end = time.time()
-    print(f"Runtime of the program is {end - start}")
+    if show_debug: print(f"Runtime of the program is {end - start}")
     
