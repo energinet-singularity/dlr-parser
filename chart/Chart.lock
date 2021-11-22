@@ -1,6 +1,0 @@
-dependencies:
-- name: file-mover
-  repository: https://energinet-singularity.github.io/helm-registry/
-  version: 0.1.0
-digest: sha256:3ca4d40f3475b62480ec38ead3bf9a4b52f167dfc63adb7e2d75a8e15c68baf6
-generated: "2021-11-18T13:54:30.549400326+01:00"
