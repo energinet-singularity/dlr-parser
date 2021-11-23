@@ -51,6 +51,7 @@ while True:
         time.sleep(cycle)
         continue
     
+    # For debugging
     if show_data: print(data)
 
     # Ensures there is a file to write to at the target location
@@ -69,4 +70,3 @@ while True:
 
     end = time.time()
     if show_debug: print(f"Runtime of the program is {end - start}")
-    
