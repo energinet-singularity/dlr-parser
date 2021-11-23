@@ -13,7 +13,7 @@ file_name = os.environ['FILE_NAME']
 
 # file_path = '/home/thomas/Desktop/workspace/python-client-kafka/kafka-scada-parser/kafka_to_csv.csv'
 
-cycle = 2
+cycle = 5
 show_debug = True
 show_data = True
 
@@ -24,44 +24,48 @@ consumer = KafkaConsumer(
     group_id='Limit consumer',
     value_deserializer=lambda x: loads(x.decode('utf-8')))
 
+# Function to call the kafka consumer and taking the last element
 def consumer_kafka_to_csv():
-    for i,message in enumerate(consumer):
-        if i < 1:
-            message = message.value
-            #print('{} added'.format(message))
-            consumer.commit()
-        else:
-            break
-        return message
+    buffer = []
+    for message in consumer:
+        time = message.value.get('calculation_time')
+        if len(buffer) > 0:
+            if buffer[0].get('calculation_time') != time:
+                buffer = []
+        buffer.append(message.value)
 
+        if len(buffer) == 6:
+            return buffer
+
+
+# Main loop
 while True:
-
+    # Start time
     start = time.time()
+    if show_debug: print('Starting loop')
+    # Receiving the last message from the kafka topic
     try:
         data = consumer_kafka_to_csv()
-    except:
-        print('Failed to connect to kafka topic')
+    except Exception as e:
+        print(f"Failed to connect to kafka topic: {e}")
         time.sleep(cycle)
         continue
     
     if show_data: print(data)
 
+    # Ensures there is a file to write to at the target location
     if not os.path.isfile(file_path):
         df = pd.DataFrame(list())
         df.to_csv(file_name)
-    
 
-    if True:
-        try:
-            with open(file_path, 'w') as csv_file:
-                w = csv.DictWriter(csv_file, fieldnames = data.keys())
-                w.writeheader()
-                for i in data:
-                    w.writerow(data)
-        except IOError:
-            print('I/O error')
-    else:
-        print('No new data in kafka topic')
+    try:
+        with open(file_path, 'w') as csv_file:
+            w = csv.DictWriter(csv_file, fieldnames = data[0].keys())
+            w.writeheader()
+            for i in data:
+                w.writerow(i)
+    except IOError:
+        print('I/O error')
 
     end = time.time()
     if show_debug: print(f"Runtime of the program is {end - start}")
