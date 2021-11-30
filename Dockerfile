@@ -12,4 +12,4 @@ COPY dlr_limit_consumer.py /DLR/
 # Declare the port number the container should expose
 
 # Run the application
-CMD ["python3", "/DLR/dlr_limit_consumer.py"]
+CMD ["python3", "-u", "/DLR/dlr_limit_consumer.py"]
