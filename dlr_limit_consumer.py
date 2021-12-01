@@ -58,13 +58,23 @@ while True:
     else:
         try:    
             with open(file_path, 'w') as csv_file:
+                # List of variables to be used as keys for the excel file
                 title = ["I", "SEGLIM", "LINESEG_MRID", "LIMIT1", "LIMIT2", "LIMIT3"]
                 w = csv.DictWriter(csv_file, delimiter = ',', fieldnames = title)
                 w.writeheader()
+
+                # Extract list of keys into variable
+                dlr_keys = list(data[0].keys())
+                # We iterate through the rows in data and create a new row with the correct keys. Otherwise the csv won't accept the row for further processing
+                # Title[0] and Title[1] are static, while Title[2] through Title[5] are dynamically set from the keys used in the DLR data
                 for i in data:
-                    row = {title[0]: 'D', title[1]: 'SEGLIM', title[2]: i['mrid'], title[3]: i['steady_state_rating'], title[4]: i['emergency_rating_15min'], title[5]: i['load_shedding']}
+                    row = {title[0]: 'D', 
+                           title[1]: 'SEGLIM', 
+                           title[2]: i[dlr_keys[0]], 
+                           title[3]: i[dlr_keys[1]], 
+                           title[4]: i[dlr_keys[2]], 
+                           title[5]: i[dlr_keys[3]]}
                     w.writerow(row)
-                
         except IOError:
             print('I/O error')
 
