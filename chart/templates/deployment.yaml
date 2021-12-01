@@ -45,5 +45,5 @@ spec:
           volumes:
             - name: filestore
               persistentVolumeClaim:
-                claimName: kafcsv-pvc
+                claimName: kafka-scada-parser-pvc
                 readOnly: false
