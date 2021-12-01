@@ -7,12 +7,12 @@ file-mover:
     input:
       enabled: true
       volume:
-        emptyDir: {}
+        persistentVolumeClaim:
+          claimName: kafka-scada-parser-pvc
     output:
       enabled: true
       volume:
-        persistentVolumeClaim:
-          claimName: kafka-scada-parser-pvc
+        emptyDir: {}
 
 replicaCount: 1
 
