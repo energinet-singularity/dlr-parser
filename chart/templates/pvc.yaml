@@ -5,8 +5,8 @@ metadata:
   name: kafka-scada-parser-pvc
 spec:
   accessModes:
-    - {{ .Values.kafka-scada-parserDataVolume.accessMode }}
+    - {{ .Values.kafkascadaparserDataVolume.accessMode }}
   resources:
     requests:
-      storage: {{ .Values.kafka-scada-parserDataVolume.size }}
-  storageClassName: {{ .Values.kafka-scada-parserDataVolume.storageClass }}
+      storage: {{ .Values.kafkascadaparserDataVolume.size }}
+  storageClassName: {{ .Values.kafkascadaparserDataVolume.storageClass }}

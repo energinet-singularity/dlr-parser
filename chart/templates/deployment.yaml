@@ -42,8 +42,8 @@ spec:
           volumeMounts:
             - name: filestore
               mountPath: /data
-        volumes:
-          - name: filestore
-            persistentVolumeClaim:
-              claimName: kafka-scada-parser-pvc
-              readOnly: false
+      volumes:
+        - name: filestore
+          persistentVolumeClaim:
+            claimName: kafka-scada-parser-pvc
+            readOnly: false
