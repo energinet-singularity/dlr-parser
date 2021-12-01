@@ -62,18 +62,8 @@ while True:
                 w = csv.DictWriter(csv_file, delimiter = ',', fieldnames = title)
                 w.writeheader()
                 for i in data:
-                    i[title[0]] = 'D'
-                    i[title[1]] = 'SEGLIM'
-                    i[title[2]] = i['mrid']
-                    del i['mrid']
-                    i[title[3]] = i['steady_state_rating']
-                    del i['steady_state_rating']
-                    i[title[4]] = i['emergency_rating_15min']
-                    del i['emergency_rating_15min']
-                    i[title[5]] = i['load_shedding']
-                    del i['load_shedding']
-                    del i['calculation_time']
-                    w.writerow(i)
+                    row = {title[0]: 'D', title[1]: 'SEGLIM', title[2]: i['mrid'], title[3]: i['steady_state_rating'], title[4]: i['emergency_rating_15min'], title[5]: i['load_shedding']}
+                    w.writerow(row)
                 
         except IOError:
             print('I/O error')
