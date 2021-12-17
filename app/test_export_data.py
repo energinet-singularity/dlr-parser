@@ -9,7 +9,7 @@ import path
 def test_dummy():
     assert True
 
-from dlr_limit_consumer import add
 
+import dlr_limit_consumer
 def test_add():
-    assert add(4, 2) == 6
+    assert dlr_limit_consumer.add(4, 2) == 6
