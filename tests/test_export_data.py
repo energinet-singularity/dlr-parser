@@ -4,7 +4,7 @@
 # import pytest
 
 # Import modules that should be included for testing
-import dlr_limit_consumer
+import app.dlr_limit_consumer
 
 # Dummytest which will always succeed - must be replaced by real tests
 
