@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
-import sys
-import os
+# import sys
+# import os
 # import pytest
+
+# Import modules that should be included for testing
+import dlr_limit_consumer
 
 # Dummytest which will always succeed - must be replaced by real tests
 
 def test_dummy():
     assert True
 
-import dlr_limit_consumer
-
 def test_add():
-    assert dlr_limit_consumer.add(4, 2) == 6
+    assert add(4, 2) == 6
