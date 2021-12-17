@@ -1,7 +1,7 @@
 from kafka import KafkaConsumer
 from json import loads
 import time
-import pandas as pd
+from pandas import DataFrame
 import csv
 import os
 
@@ -54,7 +54,7 @@ while True:
 
     # Ensures there is a file to write to at the target location
     if not os.path.isfile(file_path):
-        df = pd.DataFrame(list())
+        df = DataFrame(list())
         df.to_csv(file_name)
     
     if len(data) == 0:
