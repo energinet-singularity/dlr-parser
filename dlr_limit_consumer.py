@@ -11,7 +11,7 @@ topic_name = os.environ['KAFKA_TOPIC']
 file_path = os.environ['FILE_PATH']
 file_name = os.environ['FILE_NAME']
 
-#file_path = '/home/thomas/Desktop/workspace/python-client-kafka/kafka-scada-parser/kafka_to_csv.csv'
+# file_path = '/home/thomas/Desktop/workspace/python-client-kafka/kafka-scada-parser/kafka_to_csv.csv'
 
 cycle = 5
 show_debug = True
