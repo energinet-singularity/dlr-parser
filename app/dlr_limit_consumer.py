@@ -24,6 +24,9 @@ consumer = KafkaConsumer(
     group_id='Limit consumer',
     value_deserializer=lambda x: loads(x.decode('utf-8')))
 
+def add(a, b):
+    return a + b
+
 # Function to call the kafka consumer and taking the last element
 def consumer_kafka_to_csv():
     # buffer = []
@@ -32,6 +35,7 @@ def consumer_kafka_to_csv():
         message = message.value
         consumer.commit()
         return message
+
 
 # Main loop
 while True:
@@ -45,14 +49,14 @@ while True:
         print(f"Failed to connect to kafka topic: {e}")
         time.sleep(cycle)
         continue
-    
+
     if show_data: print(data)
 
     # Ensures there is a file to write to at the target location
     if not os.path.isfile(file_path):
         df = pd.DataFrame(list())
         df.to_csv(file_name)
-        
+    
     if len(data) == 0:
         continue
     else:
