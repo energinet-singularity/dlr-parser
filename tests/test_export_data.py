@@ -4,7 +4,7 @@
 # import pytest
 
 # Import modules that should be included for testing
-from app.dlr_limit_consumer import add
+import app.dlr_limit_consumer
 
 # Dummytest which will always succeed - must be replaced by real tests
 
@@ -12,4 +12,4 @@ def test_dummy():
     assert True
 
 def test_add():
-    assert add(4, 2) == 6
+    assert app.dlr_limit_consumer.add(4, 2) == 6
