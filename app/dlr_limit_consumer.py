@@ -1,6 +1,5 @@
 from kafka import KafkaConsumer
 from json import loads
-import pandas as pd
 import time
 import csv
 import sys
@@ -57,7 +56,7 @@ if __name__ == "__main__":
     if topic_name == "":
         print('Input on topic_name is not set')
         sys.exit(1)
-        
+
     if file_name == "":
         print('Input on topic_name is not set')
         sys.exit(1)
