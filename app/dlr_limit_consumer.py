@@ -1,12 +1,11 @@
 from kafka import KafkaConsumer
 from json import loads
-import time
 import pandas as pd
+import time
 import csv
-import os
 import sys
+import os
 
-# file_path = '/home/thomas/Desktop/workspace/python-client-kafka/kafka-scada-parser/kafka_to_csv.csv'
 show_debug = True
 show_data = True
 
@@ -58,7 +57,7 @@ if __name__ == "__main__":
     if topic_name == "":
         print('Input on topic_name is not set')
         sys.exit(1)
-
+        
     if file_name == "":
         print('Input on topic_name is not set')
         sys.exit(1)
