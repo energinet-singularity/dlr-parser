@@ -1,7 +1,7 @@
 from kafka import KafkaConsumer
 from json import loads
 import time
-from pandas import DataFrame
+import pandas as pd
 import csv
 import os
 
@@ -38,49 +38,50 @@ def consumer_kafka_to_csv():
 
 
 # Main loop
-while True:
-    # Start time
-    start = time.time()
-    print('Starting loop')
-    # Receiving the last message from the kafka topic
-    try:
-        data = consumer_kafka_to_csv()
-    except Exception as e:
-        print(f"Failed to connect to kafka topic: {e}")
-        time.sleep(cycle)
-        continue
+if __name__ == "__main__":
+    while True:
+        # Start time
+        start = time.time()
+        print('Starting loop')
+        # Receiving the last message from the kafka topic
+        try:
+            data = consumer_kafka_to_csv()
+        except Exception as e:
+            print(f"Failed to connect to kafka topic: {e}")
+            time.sleep(cycle)
+            continue
 
-    if show_data: print(data)
+        if show_data: print(data)
 
-    # Ensures there is a file to write to at the target location
-    if not os.path.isfile(file_path):
-        df = DataFrame(list())
-        df.to_csv(file_name)
-    
-    if len(data) == 0:
-        continue
-    else:
-        try:    
-            with open(file_path, 'w') as csv_file:
-                # List of variables to be used as keys for the excel file
-                title = ["I", "SEGLIM", "LINESEG_MRID", "LIMIT1", "LIMIT2", "LIMIT3"]
-                w = csv.DictWriter(csv_file, delimiter = ',', fieldnames = title)
-                w.writeheader()
+        # Ensures there is a file to write to at the target location
+        if not os.path.isfile(file_path):
+            df = pd.DataFrame(list())
+            df.to_csv(file_name)
+        
+        if len(data) == 0:
+            continue
+        else:
+            try:    
+                with open(file_path, 'w') as csv_file:
+                    # List of variables to be used as keys for the excel file
+                    title = ["I", "SEGLIM", "LINESEG_MRID", "LIMIT1", "LIMIT2", "LIMIT3"]
+                    w = csv.DictWriter(csv_file, delimiter = ',', fieldnames = title)
+                    w.writeheader()
 
-                # Extract list of keys into variable
-                dlr_keys = list(data[0].keys())
-                # We iterate through the rows in data and create a new row with the correct keys. Otherwise the csv won't accept the row for further processing
-                # Title[0] and Title[1] are static, while Title[2] through Title[5] are dynamically set from the keys used in the DLR data
-                for i in data:
-                    row = {title[0]: 'D', 
-                           title[1]: 'SEGLIM', 
-                           title[2]: i[dlr_keys[0]], 
-                           title[3]: i[dlr_keys[1]], 
-                           title[4]: i[dlr_keys[2]], 
-                           title[5]: i[dlr_keys[3]]}
-                    w.writerow(row)
-        except IOError:
-            print('I/O error')
+                    # Extract list of keys into variable
+                    dlr_keys = list(data[0].keys())
+                    # We iterate through the rows in data and create a new row with the correct keys. Otherwise the csv won't accept the row for further processing
+                    # Title[0] and Title[1] are static, while Title[2] through Title[5] are dynamically set from the keys used in the DLR data
+                    for i in data:
+                        row = {title[0]: 'D', 
+                            title[1]: 'SEGLIM', 
+                            title[2]: i[dlr_keys[0]], 
+                            title[3]: i[dlr_keys[1]], 
+                            title[4]: i[dlr_keys[2]], 
+                            title[5]: i[dlr_keys[3]]}
+                        w.writerow(row)
+            except IOError:
+                print('I/O error')
 
-    end = time.time()
-    if show_debug: print(f"Runtime of the program is {end - start}")
+        end = time.time()
+        if show_debug: print(f"Runtime of the program is {end - start}")

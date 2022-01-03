@@ -6,10 +6,10 @@ name: Python automated test
 on:
   pull_request:
     branches: [main]
-    paths: ['**.py', 'tests/**.py']
+    paths: ['app/**.py', 'tests/**.py']
 
   push:
-    paths: ['tests/**.py', '**.py']
+    paths: ['app/**.py', 'tests/**.py']
 
   workflow_dispatch:
 
