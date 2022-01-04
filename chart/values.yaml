@@ -3,6 +3,8 @@
 # Declare variables to be passed into your templates.
 
 file-mover:
+  labels:
+    fm-dlr-parser: "S1"
   folderMounts:
     input:
       enabled: true
