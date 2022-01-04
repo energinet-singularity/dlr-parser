@@ -12,7 +12,8 @@ show_data = True
 def consumer_kafka_to_csv():
     # buffer = []
     for message in consumer:
-        print('I were here')
+        print('Got message from kafka:')
+        print(message.value)
         message = message.value
         consumer.commit()
         return message
