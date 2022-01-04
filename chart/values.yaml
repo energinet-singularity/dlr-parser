@@ -3,6 +3,8 @@
 # Declare variables to be passed into your templates.
 
 file-mover:
+  labels:
+    fm-dlr-parser: "S1"
   folderMounts:
     input:
       enabled: true
@@ -20,7 +22,7 @@ image:
   repository: ghcr.io/energinet-singularity/kafka-scada-parser/energinet-singularity/kafka-scada-parser
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "1.0.0"
+  tag: "1.0.3"
 
 imagePullSecrets: []
 nameOverride: ""
