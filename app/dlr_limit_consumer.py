@@ -59,7 +59,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     if file_name == "":
-        print('Input on topic_name is not set')
+        print('Input on file_name is not set')
         sys.exit(1)
 
     # Wait time used if kafka connection fails
