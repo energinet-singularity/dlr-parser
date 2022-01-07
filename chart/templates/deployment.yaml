@@ -8,7 +8,7 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "..selectorLabels" . | nindent 6 }}
+      {{- toYaml .Values.selectorLabels | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -16,18 +16,10 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "..selectorLabels" . | nindent 8 }}
+        {{- toYaml .Values.podLabels | nindent 8 }}
     spec:
       affinity:
-        podAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: fm-dlr-parser
-                operator: In
-                values:
-                - S1
-            topologyKey: "kubernetes.io/hostname"
+        {{- toYaml .Values.affinity | nindent 8 }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
