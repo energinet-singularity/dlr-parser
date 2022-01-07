@@ -2,11 +2,13 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+image:
+  repository: ghcr.io/energinet-singularity/dlr-parser/energinet-singularity/dlr-parser
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "1.0.3"
+
 file-mover:
-  podLabels:
-    fm-dlr-parser: "S1"
-  selectorLabels:
-    fm-dlr-parser: "S1"
   folderMounts:
     input:
       enabled: true
@@ -17,14 +19,35 @@ file-mover:
       enabled: true
       volume:
         emptyDir: {}
+  podLabels:
+    fm-dlr-parser: "S1"
+  selectorLabels:
+    fm-dlr-parser: "S1"
+  affinity:
+    podAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+              - key: dlr-fm-parser
+                operator: In
+                values:
+                - S1
 
 replicaCount: 1
 
-image:
-  repository: ghcr.io/energinet-singularity/dlr-parser/energinet-singularity/dlr-parser
-  pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: "1.0.3"
+podLabels:
+  dlr-fm-parser: "S1"
+selectorLabels:
+  dlr-fm-parser: "S1"
+affinity:
+  podAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: fm-dlr-parser
+              operator: In
+              values:
+              - S1
 
 imagePullSecrets: []
 nameOverride: ""
@@ -32,7 +55,6 @@ fullnameOverride: ""
 podAnnotations: {}
 nodeSelector: {}
 tolerations: []
-affinity: {}
 
 kafka:
   ip: ""
