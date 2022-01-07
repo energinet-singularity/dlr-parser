@@ -19,6 +19,7 @@ file-mover:
       enabled: true
       volume:
         emptyDir: {}
+  archiveEnable: "TRUE"
   podLabels:
     fm-dlr-parser: "S1"
   selectorLabels:
