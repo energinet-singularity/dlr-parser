@@ -8,7 +8,7 @@ Category:
 
 Checklist:
 
-* [ ] I have bumped the chart version
+* [ ] I have bumped all relevant version numbers
 * [ ] I have commented my code, particularly in hard-to-understand areas
 * [ ] I have documented my changes if this is needed
 * [ ] I have described my changes in the "description of your changes" field
