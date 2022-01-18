@@ -8,7 +8,7 @@ import os
 show_debug = True
 show_data = True
 
-# Function to call the kafka consumer and taking the last element
+# Function to call the kafka consumer and taking the last element 
 def consumer_kafka_to_csv():
     # buffer = []
     for message in consumer:
