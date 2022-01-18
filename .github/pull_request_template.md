@@ -4,7 +4,7 @@ Category:
 
 * [ ] New Feature
 * [ ] Bugfix
-* [ ] Documentation fixed
+* [ ] Documentation update
 
 Checklist:
 
