@@ -1,4 +1,4 @@
-**Description of your changes:**
+**Description of your changes**
 
 Category:
 
