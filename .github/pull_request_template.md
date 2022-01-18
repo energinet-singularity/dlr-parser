@@ -13,6 +13,6 @@ Checklist:
 * [ ] I have documented my changes if this is needed
 * [ ] I have described my changes in the "description of your changes" field
 * [ ] I have tested this change on a running cluster 
-* [ ] I have created the necessary tests in the chart, if they are possible/necessary
+* [ ] I have created/corrected automated tests related to the changes, if possible/necessary
 * [ ] I have checked that new and existing unit tests pass locally with my changes
 * [ ] I have squashed commits if necessary
