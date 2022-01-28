@@ -40,12 +40,13 @@ def export_to_file(file_name, data, shape_data):
                     # We iterate through the rows in data and create a new row with the correct keys. Otherwise the csv won't accept the row for further processing
                     # header[0] and header[1] are static, while header[2] through header[5] are dynamically set from the keys used in the DLR data
                     for i in data:
-                        row = {header[0]: 'D', 
-                            header[1]: 'SEGLIM', 
-                            header[2]: i[dlr_keys[0]], 
-                            header[3]: i[dlr_keys[1]], 
-                            header[4]: i[dlr_keys[2]], 
-                            header[5]: i[dlr_keys[3]]}
+                        row = {header[0]: 'D',
+                               header[1]: 'SEGLIM',
+                               header[2]: i[dlr_keys[0]],
+                               header[3]: i[dlr_keys[1]],
+                               header[4]: i[dlr_keys[2]],
+                               header[5]: i[dlr_keys[3]]
+                               }
                         w.writerow(row)
             except IOError:
                 print('I/O error')
@@ -60,6 +61,7 @@ def export_to_file(file_name, data, shape_data):
                         csv_writer.writerow(i.values())
             except IOError:
                 print('I/O error')
+
 
 # Main loop
 if __name__ == "__main__":
