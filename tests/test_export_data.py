@@ -4,10 +4,6 @@ import os
 # Import modules that should be included for testing
 import app.dlr_limit_consumer
 
-# Dummytest which will always succeed - must be replaced by real tests
-def test_dummy():
-    assert True
-
 # Test format of the file created by the funtion export_to_file
 def test_file(tmpdir):
     file_path = tmpdir.mkdir("data").strpath

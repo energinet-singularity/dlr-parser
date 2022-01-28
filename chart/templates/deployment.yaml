@@ -37,6 +37,8 @@ spec:
               value: {{ .Values.file.path }}
             - name: FILE_NAME
               value: {{ .Values.file.name }}
+            - name: SHAPE_DATA
+              value: {{ .Values.shape.data }}
           ports:
             - name: http
               containerPort: 80

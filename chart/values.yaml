@@ -6,7 +6,7 @@ image:
   repository: ghcr.io/energinet-singularity/dlr-parser/energinet-singularity/dlr-parser
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "1.1.3"
+  tag: "1.1.4"
 
 file-mover:
   folderMounts:
@@ -67,6 +67,9 @@ kafka:
 file:
   path: ""
   name: ""
+
+shape:
+  data: ""
 
 kafkascadaparserDataVolume:
   accessMode: ReadWriteOnce
