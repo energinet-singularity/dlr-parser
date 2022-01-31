@@ -69,7 +69,7 @@ docker volume create dlr-files
 ````bash
 docker run -v dlr-files:/data/ -e KAFKA_IP=192.1.1.1:9092 -e KAFKA_TOPIC=test -e FILE_NAME=testname.csv -it --rm dlr-parser:latest
 ````
-The container will now be running interactively and you will be able to see the log output. To create a file, you will have to supply data to the consumed topic. This can be done by another container streaming data to the broker, or manually from another small python script. Remember to use the structure of the input data, see #markdown-header-Kafka-messages-/-Input.
+The container will now be running interactively and you will be able to see the log output. To create a file, you will have to supply data to the consumed topic. This can be done by another container streaming data to the broker, or manually from another small python script. Remember to use the structure of the input data, see section Kafka messages / Input.
 
 ## Help
 
