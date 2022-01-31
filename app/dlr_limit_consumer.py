@@ -1,5 +1,6 @@
 from kafka import KafkaConsumer
 from json import loads
+import logging
 import time
 import csv
 import sys
@@ -7,6 +8,9 @@ import os
 
 show_debug = True
 show_data = True
+
+# Initialize log
+log = logging.getLogger(__name__)
 
 # Input from user
 IP = os.environ.get('KAFKA_IP')
@@ -17,11 +21,10 @@ shape_data = os.environ.get('SHAPE_DATA', 'True')
 
 # Function to call the kafka consumer and taking the last element
 def consumer_kafka_to_csv():
-    # buffer = []
     for message in consumer:
-        print('Got message from kafka:')
-        print(message.value)
+        log.info('Got message from kafka:')
         message = message.value
+        log.debug(message)
         consumer.commit()
         return message
 
@@ -49,7 +52,7 @@ def export_to_file(file_name, data, shape_data):
                                }
                         w.writerow(row)
             except IOError:
-                print('I/O error')
+                log.debug('I/O error')
         else:
             try:
                 with open(file_name, 'w+', newline='') as csv_file:
@@ -60,50 +63,58 @@ def export_to_file(file_name, data, shape_data):
                     for i in data:
                         csv_writer.writerow(i.values())
             except IOError:
-                print('I/O error')
+                log.debug('I/O error')
 
 
 # Main loop
 if __name__ == "__main__":
 
+    # Setup logging for client output (__main__ should output INFO-level, everything else stays at WARNING)
+    logging.basicConfig(format="%(levelname)s:%(asctime)s:%(name)s - %(message)s")
+    logging.getLogger(__name__).setLevel(logging.INFO)
+
     # Check to see if there is a input on the environment variables
     if IP == "":
-        print('Input on IP is not set')
+        log.info('Input on IP is not set')
         sys.exit(1)
 
     if topic_name == "":
-        print('Input on topic_name is not set')
+        log.info('Input on topic_name is not set')
         sys.exit(1)
 
     if file_name == "":
-        print('Input on file_name is not set')
+        log.info('Input on file_name is not set')
         sys.exit(1)
 
     # Wait time used if kafka connection fails
     cycle = 5
 
-    consumer = KafkaConsumer(
-        topic_name,
-        bootstrap_servers=[IP],
-        auto_offset_reset='latest',
-        group_id='Limit consumer',
-        value_deserializer=lambda x: loads(x.decode('utf-8')))
+    try:
+        consumer = KafkaConsumer(
+            topic_name,
+            bootstrap_servers=[IP],
+            auto_offset_reset='latest',
+            group_id='Limit consumer',
+            value_deserializer=lambda x: loads(x.decode('utf-8')))
+    except Exception:
+        log.exception('Connection to kafka failed. Check enviroment variable KAFKA_IP and reload the script/container to try again.')
 
     while True:
-        # Start time
-        start = time.time()
-        print('Starting loop')
+        
+        log.info('Starting loop')
         # Receiving the last message from the kafka topic
         try:
             data = consumer_kafka_to_csv()
         except Exception as e:
-            print(f"Failed to connect to kafka topic: {e}")
+            log.debug(f"Failed to connect to kafka topic: {e}")
             time.sleep(cycle)
             continue
+        
+        log.debug(data)
 
-        if show_data: print(data)
-
+        # Start time of the internal part of the program
+        start = time.time()
         export_to_file(f'/data/{file_name}', data, shape_data)
-
         end = time.time()
-        if show_debug: print(f"Runtime of the program is {end - start}")
+
+        log.debug(f"Runtime of the program is {end - start}")

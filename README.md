@@ -17,7 +17,8 @@ This repository contains a python-script that will read messages provided by a k
 
 ### Kafka messages / Input
 
-Messages recieved from the kafka broker is expected to be a list of json format messages with the following structure:
+As default the system will be configured to be used in the specific use case it was created for. However it is possible to disable shaping of data and take any list of json, to utilize the generel functionality use enivorment variable 'shape_data' and set it to 'False'.
+If shaping of data is disable any message consisting of a list with json formatted structure will work. See below for an example of such a list:
 
 [{"Name":"John", "age":30, "Years to service":1, "Production year":2010, "Color":"Blue"},
  {"Name":"Jesper", "age":42, "Years to service":4, "Production year":2022, "Color":"Black"},
@@ -26,7 +27,7 @@ Messages recieved from the kafka broker is expected to be a list of json format 
 
 ### File handling / Output
 
-
+The output will be a file located on the volume in the folder /data/'file_name.xxx'.
 
 ## Getting Started
 
@@ -64,11 +65,11 @@ docker build dlr-parser/ -t dlr-parser:latest
 docker volume create dlr-files
 ````
 
-3. Start the container in docker (change host and topic to fit your environment)
+3. Start the container in docker (change kafka-host, kafka_topic and file_name to fit your environment)
 ````bash
-docker run -v dlr-files:/data/ -e KAFKA_HOST=192.1.1.1:9092 -e KAFKA_TOPIC=test -e FILE_NAME=testname.csv -it --rm dlr-parser:latest
+docker run -v dlr-files:/data/ -e KAFKA_IP=192.1.1.1:9092 -e KAFKA_TOPIC=test -e FILE_NAME=testname.csv -it --rm dlr-parser:latest
 ````
-The container will now be running interactively and you will be able to see the log output. To create a file, you will have to supply data to the input topic. This can be done by another container streaming data to the broker, or manually from another small python script.
+The container will now be running interactively and you will be able to see the log output. To create a file, you will have to supply data to the consumed topic. This can be done by another container streaming data to the broker, or manually from another small python script. Remember to use the structure of the input data, see section Kafka messages / Input.
 
 ## Help
 
@@ -81,6 +82,7 @@ For anything else, please submit an issue or ask the authors.
 * 1.1.4:
     * Added a way to disable project related shaping of data. Therefore it is possible to pass any list of json from Kafka by setting this parameter to False.
     * Added general documentation to the repository, mainly foccused on the README.md
+    * Added python standard logging to the script
 
 * 1.1.3:
     * First production-ready version

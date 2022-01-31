@@ -8,9 +8,9 @@ COPY app/requirements.txt /
 RUN pip3 install --upgrade pip && pip3 install -r requirements.txt --no-cache-dir && rm requirements.txt
 
 # Copy files required for the app to run
-COPY app/dlr_limit_consumer.py /DLR/
+COPY app/* /app/
 
 # Declare the port number the container should expose
 
 # Run the application
-CMD ["python3", "-u", "/DLR/dlr_limit_consumer.py"]
+CMD ["python3", "-u", "/app/dlr_limit_consumer.py"]
