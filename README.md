@@ -20,9 +20,9 @@ This repository contains a python-script that will read messages provided by a k
 As default the system will be configured to be used in the specific use case it was created for. However it is possible to disable shaping of data and take any list of json, to utilize the generel functionality use enivorment variable 'shape_data' and set it to 'False'.
 If shaping of data is disable any message consisting of a list with json formatted structure will work. See below for an example of such a list:
 
-[{"Name":"John", "age":30, "Years to service":1, "Production year":2010, "Color":"Blue"},
- {"Name":"Jesper", "age":42, "Years to service":4, "Production year":2022, "Color":"Black"},
- ....,
+[{"Name":"John", "age":30, "Years to service":1, "Production year":2010, "Color":"Blue"},\
+ {"Name":"Jesper", "age":42, "Years to service":4, "Production year":2022, "Color":"Black"},\
+ ....,\
 ]
 
 ### File handling / Output
