@@ -38,7 +38,7 @@ Feel free to either import the python-file as a lib or run it directly - or use 
 ### Dependencies
 
 * To run the script a kafka broker must be available (use the 'KAFKA_IP' environment variable).
-* A kafka topic with input data. An examble of this data can be taken from tests/test_export_data.py variable "data".
+* A kafka topic with input data. An example of this data can be taken from tests/test_export_data.py variable "data".
 
 #### Python (if not run as part of the container)
 
