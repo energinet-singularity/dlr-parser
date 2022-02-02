@@ -1,10 +1,10 @@
 from kafka import KafkaConsumer
+from os import environ as env
 from json import loads
 import logging
 import time
 import csv
 import sys
-import os
 
 show_debug = True
 show_data = True
@@ -13,11 +13,25 @@ show_data = True
 log = logging.getLogger(__name__)
 
 # Input from user
-IP = os.environ.get('KAFKA_IP')
-topic_name = os.environ.get('KAFKA_TOPIC')
-file_name = os.environ.get('FILE_NAME')
+try:
+    IP = env.get('KAFKA_IP')
+except KeyError:
+    log.warning('Input on KAFKA_IP is not set')
+    sys.exit(1)
+try:
+    topic_name = env.get('KAFKA_TOPIC')
+except KeyError:
+    log.warning('Input on KAFKA_TOPIC is not set')
+    sys.exit(1)
+try:
+    file_name = env.get('FILE_NAME')
+except KeyError:
+    log.warning('Input on FILE_NAME is not set')
+    sys.exit(1)
+
 # Parameter to disable shaping of the data and instead generate a file directly from the json list
-shape_data = os.environ.get('SHAPE_DATA', 'True')
+shape_data = env.get('SHAPE_DATA', 'True')
+shape_data = shape_data.upper() == 'TRUE'
 
 # Function to call the kafka consumer and taking the last element
 def consumer_kafka_to_csv():
@@ -72,19 +86,6 @@ if __name__ == "__main__":
     # Setup logging for client output (__main__ should output INFO-level, everything else stays at WARNING)
     logging.basicConfig(format="%(levelname)s:%(asctime)s:%(name)s - %(message)s")
     logging.getLogger(__name__).setLevel(logging.INFO)
-
-    # Check to see if there is a input on the environment variables
-    if IP == "":
-        log.info('Input on IP is not set')
-        sys.exit(1)
-
-    if topic_name == "":
-        log.info('Input on topic_name is not set')
-        sys.exit(1)
-
-    if file_name == "":
-        log.info('Input on file_name is not set')
-        sys.exit(1)
 
     # Wait time used if kafka connection fails
     cycle = 5
