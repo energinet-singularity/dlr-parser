@@ -106,7 +106,7 @@ if __name__ == "__main__":
         try:
             data = consumer_kafka_to_csv()
         except Exception as e:
-            log.debug(f"Failed to connect to kafka topic: {e}")
+            log.warning(f"Failed to connect to kafka topic: {e}")
             time.sleep(cycle)
             continue
         
