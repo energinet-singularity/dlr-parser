@@ -63,7 +63,7 @@ def export_to_file(file_name, data, shape_data):
                                }
                         w.writerow(row)
             except IOError:
-                log.debug('I/O error')
+                log.warning('I/O error')
         else:
             try:
                 with open(file_name, 'w+', newline='') as csv_file:
@@ -74,7 +74,7 @@ def export_to_file(file_name, data, shape_data):
                     for i in data:
                         csv_writer.writerow(i.values())
             except IOError:
-                log.debug('I/O error')
+                log.warning('I/O error')
 
 
 # Main loop
