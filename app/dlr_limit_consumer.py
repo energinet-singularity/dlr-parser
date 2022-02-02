@@ -6,9 +6,6 @@ import time
 import csv
 import sys
 
-show_debug = True
-show_data = True
-
 # Initialize log
 log = logging.getLogger(__name__)
 
