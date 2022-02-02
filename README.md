@@ -18,7 +18,7 @@ This repository contains a python-script that will read messages provided by a k
 ### Kafka messages / Input
 
 As default the system will be configured to shape data for DLR. However it is possible to disable shaping of data and take any list of json, to utilize the generel functionality use environment variable 'shape_data' and set it to 'False'.
-If shaping of data is disable any message consisting of a list with json formatted structure will work. See below for an example of such a list:
+If shaping of data is disabled, any message consisting of a list with json formatted structure will work. See below for an example of such a list:
 
 [{"Name":"John", "age":30, "Years to service":1, "Production year":2010, "Color":"Blue"},\
  {"Name":"Jesper", "age":42, "Years to service":4, "Production year":2022, "Color":"Black"},\
