@@ -9,7 +9,7 @@ import sys
 # Initialize log
 log = logging.getLogger(__name__)
 
-# Input from user
+# Input from user 
 try:
     IP = env.get('KAFKA_IP')
 except KeyError:
