@@ -11,7 +11,7 @@ log = logging.getLogger(__name__)
 
 # Input from user 
 try:
-    IP = env.get('KAFKA_IP')
+    ip = env.get('KAFKA_IP')
 except KeyError:
     log.warning('Input on KAFKA_IP is not set')
     sys.exit(1)
@@ -90,7 +90,7 @@ if __name__ == "__main__":
     try:
         consumer = KafkaConsumer(
             topic_name,
-            bootstrap_servers=[IP],
+            bootstrap_servers=[ip],
             auto_offset_reset='latest',
             group_id='Limit consumer',
             value_deserializer=lambda x: loads(x.decode('utf-8')))
