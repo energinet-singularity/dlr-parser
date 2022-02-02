@@ -22,7 +22,7 @@ shape_data = os.environ.get('SHAPE_DATA', 'True')
 # Function to call the kafka consumer and taking the last element
 def consumer_kafka_to_csv():
     for message in consumer:
-        log.info('Got message from kafka:')
+        log.info('Got message from kafka')
         message = message.value
         log.debug(message)
         consumer.commit()
