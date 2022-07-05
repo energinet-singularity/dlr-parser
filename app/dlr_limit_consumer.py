@@ -11,17 +11,17 @@ log = logging.getLogger(__name__)
 
 # Input from user
 try:
-    ip = env.get("KAFKA_IP", "10.244.0.9:9092")
+    ip = env.get("KAFKA_IP")
 except KeyError:
     log.warning("Input on KAFKA_IP is not set")
     sys.exit(1)
 try:
-    topic_name = env.get("KAFKA_TOPIC", "limits")
+    topic_name = env.get("KAFKA_TOPIC")
 except KeyError:
     log.warning("Input on KAFKA_TOPIC is not set")
     sys.exit(1)
 try:
-    file_name = env.get("FILE_NAME", "limit_file")
+    file_name = env.get("FILE_NAME")
 except KeyError:
     log.warning("Input on FILE_NAME is not set")
     sys.exit(1)
