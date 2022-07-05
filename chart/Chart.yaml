@@ -2,9 +2,9 @@ apiVersion: v2
 name: dlr-parser
 description: A Helm chart for pushing data from kafka topic to a CSV file at a specified location
 type: application
-version: 1.1.4
+version: 1.1.5
 
 dependencies:
-    - name: file-mover
-      repository: "https://energinet-singularity.github.io/helm-registry/"
-      version: 1.1.2
+  - name: file-mover
+    repository: "https://energinet-singularity.github.io/helm-registry/"
+    version: 1.1.2

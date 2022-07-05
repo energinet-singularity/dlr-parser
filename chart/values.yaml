@@ -6,7 +6,7 @@ image:
   repository: ghcr.io/energinet-singularity/dlr-parser/energinet-singularity/dlr-parser
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "1.1.4"
+  tag: "1.1.5"
 
 file-mover:
   folderMounts:
@@ -27,15 +27,15 @@ file-mover:
   affinity:
     podAffinity:
       preferredDuringSchedulingIgnoredDuringExecution:
-      - weight: 1
-        podAffinityTerm:        
-          labelSelector:
-            matchExpressions:
-              - key: dlr-fm-parser
-                operator: In
-                values:
-                - S1
-          topologyKey: "kubernetes.io/hostname"
+        - weight: 1
+          podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: dlr-fm-parser
+                  operator: In
+                  values:
+                    - S1
+            topologyKey: "kubernetes.io/hostname"
 replicaCount: 1
 
 podLabels:
@@ -50,7 +50,7 @@ affinity:
             - key: fm-dlr-parser
               operator: In
               values:
-              - S1
+                - S1
         topologyKey: "kubernetes.io/hostname"
 
 imagePullSecrets: []
@@ -60,16 +60,11 @@ podAnnotations: {}
 nodeSelector: {}
 tolerations: []
 
-kafka:
-  ip: ""
-  topic: ""
-
-file:
-  path: ""
-  name: ""
-
-shape:
-  data: ""
+EnvVars:
+  # KAFKA_IP: ""
+  # KAFKA_TOPIC: ""
+  # FILE_NAME: ""
+  # SHAPE_DATA: ""
 
 kafkascadaparserDataVolume:
   accessMode: ReadWriteOnce

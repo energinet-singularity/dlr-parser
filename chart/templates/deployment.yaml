@@ -29,16 +29,10 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-            - name: KAFKA_IP
-              value: {{ .Values.kafka.ip }}
-            - name: KAFKA_TOPIC
-              value: {{ .Values.kafka.topic }}
-            - name: FILE_PATH
-              value: {{ .Values.file.path }}
-            - name: FILE_NAME
-              value: {{ .Values.file.name }}
-            - name: SHAPE_DATA
-              value: {{ .Values.shape.data }}
+          {{- range $name, $value := .Values.EnvVars }}
+            - name: {{ $name }}
+              value: {{ $value | quote}}
+          {{- end }}
           ports:
             - name: http
               containerPort: 80
